@@ -1,0 +1,365 @@
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>jQuery.indexNav.js - 特定の見出しを抽出してリスト化するjQueryプラグイン</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<meta name="robots" content="index,follow">
+
+	<meta property="og:title" content="jQuery.indexNav.js" />
+	<meta property="og:description" content="特定の見出しを抽出してリスト化するjQueryプラグイン" />
+	<meta property="og:url" content="http://www.gouten.net/jquery_index_nav/" />
+	<meta property="og:image" content="http://www.gouten.net/jquery_index_nav/nofish.png" />
+	<meta property="og:author" content="GOUTEN" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="ゴウテンネット -GOUTEN.NET-" />
+	<meta property="og:locale" content="ja_JP" />
+
+	<link type="text/css" rel="stylesheet" href="./css/jquey.indexNav.css">
+	<!--[if lt IE 9]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<header id="top">
+		<div class="titleArea">特定の見出しを抽出してリストにしてみるテスト</div>
+	</header>
+
+	<div id="container">
+	<article id="post">
+	<h1>jQuery.indexNav.js</h1>
+
+	<section>
+	<h2 id="detail">プラグインの概要</h2>
+	<h3>説明</h3>
+	<p>特定のIDがついている要素を抽出して、リストに置き換えて表示します。<br>
+	スムーズスクロールもします。<br>
+	<small>スクロールの挙動がおかしいのでもう少し練りたい。</small></p>
+	<p>
+		オプション指定により見出しテキストを連番に置き換えることや、表示するエリアの指定、スクロールの速度を変えたりすることも可能です。<br>
+	オプションの詳細については後述します。<br>
+		<small>入れ子には対応していません。</small>
+	</p>
+	<h3>ライセンス</h3>
+	<p>たぶんMITライセンスです。</p>
+	<h3>動作ブラウザ</h3>
+	<ul>
+		<li>Internet Explorer 8 and Later</li>
+		<li>Firefox 17.0 and Later</li>
+		<li>Google Chrome 23.0 and Later</li>
+		<li>Opera 12.0 and Later</li>
+		<li>Safari 6.0 and Later</li>
+	</ul>
+	<p>
+		<small>その他のブラウザでのデバッグ募集中。特にAndroidでの動作確認を募集しています。</small>
+	</p>
+	<h3>動作に必要なもの</h3>
+	<p>動作にはjQueryが必要です。現在ver.1.8.3にて確認しています。<br>
+	<small>他のバージョンに関しては今後対応確認を致します。</small></p>
+	</section>
+
+	<section>
+	<h2 id="demo">デモ & ダウンロード</h2>
+	<h3>デモ</h3>
+	<p>このページです。右側にテキストが出ているアレです。</p>
+	<h3>ダウンロード</h3>
+	<p>
+		<div class="switch">
+			<a class="download" href="http://www.gouten.net/download/jqueryindexnav.zip" target="_blank">DOWNLOAD</a>
+		</div>
+	</p>
+	</section>
+
+	<section>
+	<h2 id="howto">使用方法</h2>
+	<h3>必要なファイル</h3>
+	<ul>
+		<li>jquery.js</li>
+		<li>jquery.indexNav.js</li>
+		<li>読み込ませるHTMLファイル</li>
+	</ul>
+
+	<h3>基本の使い方</h3>
+	<p>htmlを構成し、抽出するすべての見出しが入っている要素にidを振ります。<br>
+	今回は分かりやすいようにidを「post」としました</p>
+	<p>次にリンクリストを表示するエリアを指定します。<br>
+	中身は空でいいです。<br>
+	<small>デフォルトの設定では「id="#linkarea"」になっています。</small></p>
+	<p>そして見出しとなる要素にidを振っていきます。<br>
+	<small>デフォルトの設定ではh2タグです。</small></p>
+	<blockquote>
+		<strong>&lt;div id="listarea"&gt;&lt;/div&gt;</strong><br>
+		<strong>&lt;div id="post"&gt;</strong><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;h2&nbsp;id=&quot;element01&quot;&gt;ひとつ目の見出し&lt;/h2&gt;</strong><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;h2&nbsp;id=&quot;element02&quot;&gt;ふたつ目の見出し&lt;/h2&gt;</strong><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<strong>&lt;h2&nbsp;id=&quot;element03&quot;&gt;みっつ目の見出し&lt;/h2&gt;</strong><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;・<br>
+		<strong>&lt;/div&gt;</strong>
+	</blockquote>
+	<p>「jquey.js」と「jquey.indexNav.js」を外部スクリプトとしてHTMLのヘッダー内に書きます。</p>
+	<blockquote>
+		&lt;script src="./jquery.js" type="text/javascript"&gt;&lt;/script&gt; <br>
+		<strong>&lt;script src="./jquery.indexNav.js" type="text/javascript"&gt;&lt;/script&gt;</strong>
+	</blockquote>
+	<p>プラグインを動作させるための記述をします。</p>
+	<blockquote>
+		&lt;script type="text/javascript"&gt;<br>
+		$(function(){<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;<strong>$('#post').indexNav();</strong><br>
+		});<br>
+		&lt;/script&gt;
+	</blockquote>
+	<p>これで見出しが抽出されてリンクされます。<br>
+	リンクの整形はCSSでご自由にどうぞ。</p>
+	</section>
+
+	<section>
+	<h2 id="dummy003">オプション</h2>
+	<h3>オプションの指定の仕方</h3>
+	<p>
+		第一引数にオブジェクトでオプションを渡すことができます。<br>
+		複数オプションはカンマ区切りで記述してください。
+	</p>
+	<blockquote>
+		&lt;script type="text/javascript"&gt;<br>
+		$(function(){<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;$('#post').indexNav({<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Key: Value</strong><br>
+		&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+		});<br>
+		&lt;/script&gt;
+	</blockquote>
+	<h3>抽出に関するオプション</h3>
+	<table class="opt_table">
+		<tr>
+			<th class="key">Key</th>
+			<th class="value">Value</th>
+			<th class="description">Description</th>
+		</tr>
+		<tr>
+			<td class="key">indexElement</td>
+			<td class="value">'h2'</td>
+			<td class="description">
+				見出しを指定します。<br>
+				抽出されるのはidがあるものだけです。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">escList</td>
+			<td class="value">'.esclist'</td>
+			<td class="description">
+				idがある見出しの中で除外するものを指定します。<br>
+				除外されるのはこの値がついているものだけです。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">listarea</td>
+			<td class="value">'#listarea'</td>
+			<td class="description">
+				リンクリストを生成するエリアのIDを指定します。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">listNum</td>
+			<td class="value">false</td>
+			<td class="description">
+				trueにするとリンクリストのテキストが連番に置き換えられます。
+			</td>
+		</tr>
+	</table>
+	<h3>スクロールに関するオプション</h3>
+	<table class="opt_table">
+		<tr>
+			<th class="key">Key</th>
+			<th class="value">Value</th>
+			<th class="description">Description</th>
+		</tr>
+		<tr>
+			<td class="key">scrollSpeed</td>
+			<td class="value">'fast'</td>
+			<td class="description">
+				スクロールするスピードを指定します。<br>
+				ミリ秒、または「'fast' / 'slow'」等で指定してください。<br>
+				ミリ秒の場合はクオーテーションはいりません。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">easing</td>
+			<td class="value">'swing'</td>
+			<td class="description">
+				アニメーションの種類を指定します。<br>
+				現在は'swing'と'linear'しか指定できません。<br>
+				<small>Easing Pluginを連携させることも可能です。</small>
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollTop</td>
+			<td class="value">false</td>
+			<td class="description">
+				trueにすると、ページの先頭に戻るリンクが生成されます。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollTop</td>
+			<td class="value">false</td>
+			<td class="description">
+				trueにすると、ページの最下部にスクロールするリンクが生成されます。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollTopElement</td>
+			<td class="value">null</td>
+			<td class="description">
+				ページの先頭に戻るボタンに任意のid指定をします。<br>
+				上部には戻りたいけれど、一番上まで行かなくてもいい、そんなときに。<br>
+				id指定する場合はクオーテーションで囲んでください。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollBottomElement</td>
+			<td class="value">null</td>
+			<td class="description">
+				ページの最下部にスクロールするボタンに任意のid指定をします。<br>
+				下にスクロールしたいけど、フッター長すぎなんです、的なときに。<br>
+				id指定する場合はクオーテーションで囲んでください。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollTopText</td>
+			<td class="value">'Go Page Top'</td>
+			<td class="description">
+				ページの先頭に戻るボタンのテキストを任意で指定します。<br>
+				クオーテーションで囲んでください。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollBottomText</td>
+			<td class="value">'Go Page Bottom'</td>
+			<td class="description">
+				ページの最下部にスクロールするボタンを任意で指定します。<br>
+				クオーテーションで囲んでください。
+			</td>
+		</tr>
+		<tr>
+			<td class="key">scrollPosition</td>
+			<td class="value">1</td>
+			<td class="description">
+				ページの先頭に戻るボタンの位置リストの上部に置くか下部に置くかを指定できます。<br>
+				1を指定した場合(または何も指定しない場合)はリストの上部に、2を指定した場合はリストの下部に生成されます。
+			</td>
+		</tr>
+	</table>
+	<h3>裏オプション</h3>
+	<table class="opt_table">
+		<tr>
+			<th class="key">Key</th>
+			<th class="value">Value</th>
+			<th class="description">Description</th>
+		</tr>
+		<tr>
+			<td class="key">listCreate</td>
+			<td class="value">true</td>
+			<td class="description">
+				falseにすると、そもそもリストを出力しない設定になります。
+				TOPへ戻るボタンだけ欲しいとかいう場合にどうぞ。
+			</td>
+		</tr>
+	</table>
+	<p>オプションは今後アップデートで追加する予定です。</p>
+	</section>
+
+	<section>
+	<h2 id="version">バージョン履歴</h2>
+	<table class="ver_table">
+		<tr>
+			<th class="ver"><strong>Version</strong></th>
+			<th class="description">Discription</th>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.8</strong></td>
+			<td class="description">ページの先頭に戻るボタンとページの最下部にスクロールするボタンのテキストを変更できるオプションを追加<br><small>初期バージョンを1.0.0としてバージョン表記するようにしました</small></td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.7</strong></td>
+			<td class="description">ページの先頭に戻るボタンの位置リストの上部に置くか下部に置くかを変更できるようにしました</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.6</strong></td>
+			<td class="description">ページの最下部にスクロールするオプションを追加</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.5</strong></td>
+			<td class="description">ブラウザセットの定義を一時的に削除<br>アニメーションにストップ処理を追加</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.4</strong></td>
+			<td class="description">ブラウザセットの定義を変更</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.3</strong></td>
+			<td class="description">namespaceに新規メソッド追加</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.2</strong></td>
+			<td class="description">見出しをテキスト表示・数字表示切り替える際に「listarea」で指定される要素にCSSが付加されるように変更</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.1</strong></td>
+			<td class="description">「escList」オプションを追加</td>
+		</tr>
+		<tr>
+			<td class="ver"><strong>1.0.0</strong></td>
+			<td class="description">とりあえず作ってみた</td>
+		</tr>
+	</table>
+	</section>
+
+	</article>
+
+	</div>
+
+	<aside id="scrollarea">
+		<div id="listarea"></div>
+	</aside>
+
+	<footer id="bottom">
+		This script is <a href="http://opensource.org/licenses/mit-license.php" target="_blank">MIT License</a>. / Create by Takenori Okashita (<a href="http://5010works.com/" target="_blank">5010WORKS</a>)
+	</footer>
+
+	<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+	<script src="./lib/jquery.indexNav.pack.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('#post').indexNav({
+			indexElement : 'h2',
+			escList : '.esclist',
+			listCreate : true,
+			listarea : '#listarea',
+			listType : 1,
+			//listNum : false,
+			//smallPanel: true,
+			scrollSpeed : 'fast',
+			easing: 'swing',
+			scrollTop : true,
+			scrollBottom : true,
+			scrollTopElement : null,
+			scrollBottomElement : null,
+			scrollTopText : 'ページの先頭へ',
+			scrollBottomText : 'ページの最下部へ',
+			scrollPosition : 1
+		});
+	});
+	</script>
+
+</body>
+</html>
